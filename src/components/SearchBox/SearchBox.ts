@@ -121,7 +121,6 @@ namespace fabric {
         this._setHasText();
         this._searchBox.addEventListener("keyup", this._boundEnableClose, false);
         this._searchBox.classList.add(SB_IS_ACTIVE);
-        this._searchBox.classList.add(SB_IS_ACTIVE);
       }, true);
     }
 
@@ -129,6 +128,10 @@ namespace fabric {
       this._clearOnly = true;
       this._searchBoxField.value = "";
       this._setHasText();
+      const onChangeEvent = document.createEvent("HTMLEvents");
+      onChangeEvent.initEvent("change", true, true);
+      this._searchBoxField.dispatchEvent(onChangeEvent);
+
       setTimeout( () => {
         this._clearOnly = false;
       }, 10);
@@ -152,11 +155,11 @@ namespace fabric {
       if (!this._clearOnly) {
         this._searchBox.removeEventListener("keyup", this._boundEnableClose);
         setTimeout(() => {
-          if (!this._searchBox.contains(document.activeElement)) {
+          if (!this._searchBox.contains(document.activeElement) && this._searchBoxField.value == "") {
             this._clearSearchBox();
-            this._collapseSearchBox();
-            this.setCollapsedListeners();
           }
+          this._collapseSearchBox();
+          this.setCollapsedListeners();
         }, 10);
       } else {
         this._searchBoxField.focus();

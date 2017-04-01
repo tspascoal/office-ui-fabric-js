@@ -26,6 +26,15 @@ $SearchBox-command-color: #F4F4F4;
   overflow: hidden;
   background-color: $ms-color-white;
 
+
+    &.has-text {
+    .ms-SearchBox-field {
+      background-color: $ms-color-themeLighter;
+      padding: 6px 32px 7px 10px;
+    }
+  }
+
+
   // State: Active searchbox
   &.is-active {
     z-index: $ms-zIndex-front;
